@@ -1,41 +1,66 @@
 package cursoTest;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+
+import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LojaVirtualTest {
-	WebDriver driver;
-	
+
+
+public class LojaVirtualTest extends BaseTest {
+		
 	@Test
-	public void abreFechaNavegador() {
-		abreNavegador();
-		fechaNavegador();
-	}
-	
-	@Test
-	public void pesquisaLivro() {
-		abreNavegador();
+	public void testPesquisaLivro() {
 		WebElement pesquisa = driver.findElement(By.id("search"));
-		pesquisa.sendKeys("fortaleza digital");
-		pesquisa.sendKeys(Keys.ENTER);
+		pesquisa.sendKeys("fortaleza digital", Keys.ENTER);
+		WebElement eltituloLivro = driver.findElement(By.xpath("//h2/a"));
+		String livro = eltituloLivro.getText();
+		Assert.assertEquals("[PRODUTO DE EXEMPLO] - Fortaleza Digital", livro);
+		WebElement elPreco = driver.findElement(By.cssSelector("#product-price-44 > span"));
+		String preco = elPreco.getText();
+		Assert.assertEquals("R$519,90", preco);
 		
-		fechaNavegador();
+}	
 		
-	}
+		@Test
+		public void testPesquisaLivro_assertThat() {
+			WebElement pesquisa = driver.findElement(By.id("search"));
+			pesquisa.sendKeys("fortaleza digital", Keys.ENTER);
+			WebElement eltituloLivro = driver.findElement(By.xpath("//h2/a"));
+			String livro = eltituloLivro.getText();
+			Assert.assertEquals("[PRODUTO DE EXEMPLO] - Fortaleza Digital", livro);
+			WebElement elPreco = driver.findElement(By.cssSelector("#product-price-44 > span"));
+			String preco = elPreco.getText();
+			assertThat("R$519,90", is(preco));
+			assertThat("R$519,90", containsString(preco));
+		}			
 	
-	public void abreNavegador () {
-		System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
-		driver = new ChromeDriver();
-		driver.get("https://lojaexemplod.lojablindada.com");
-		driver.manage().window().maximize();
-	}
+		@Test
+		public void testClickLista() {
+			//ul.product-grid > li
+			WebElement pesquisa = driver.findElement(By.id("search"));
+			pesquisa.sendKeys("fortaleza digital", Keys.ENTER);	
+			List<WebElement> elLivros = driver.findElements(By.cssSelector("ul.product-grid > li"));
+			for (WebElement elLivro : elLivros) {
+				WebElement elTituloLivro = elLivro.findElement(By.cssSelector("h2 > a"));
+				String TituloLivro = elTituloLivro.getText();
+				if (TituloLivro.contains("Ajax com Java"));
+					WebElement elPreco = elLivro.findElement(By.cssSelector("span.price"));
+					assertThat("R$444,50", is(elPreco.getText()));
+					
+			}
+				
+			}
+			
+					
+		
+	}		
 	
-	public void fechaNavegador() {
-		driver.quit();
-	}	
-}
+
 
