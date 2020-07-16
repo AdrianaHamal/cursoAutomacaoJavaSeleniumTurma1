@@ -5,9 +5,8 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+
 
 import Pages.InicialPage;
 import core.Driver;
@@ -17,16 +16,17 @@ public class LojaVirtualTest extends BaseTest {
 
 	@Test
 	public void testPesquisaLivro() {
+		Driver.setUrl("https://lojaexemplod.lojablindada.com/");
 		inicialPage.setPesquisa("fortaleza digital", Keys.ENTER);
 		String livro = inicialPage.getTituloLivro();
 		Assert.assertEquals("[PRODUTO DE EXEMPLO] - Fortaleza Digital", livro);
-		WebElement elPreco = Driver.getDriver().findElement(By.cssSelector("#product-price-44 > span"));
-		String preco = elPreco.getText();
+		String preco = inicialPage.getPreco();
 		Assert.assertEquals("R$519,90", preco);
 	}
 
 	@Test
 	public void testPesquisaLivro_assertThat() {
+		Driver.setUrl("https://lojaexemplod.lojablindada.com/");
 		inicialPage.setPesquisa("fortaleza digital", Keys.ENTER);
 		String livro = inicialPage.getTituloLivro();
 		Assert.assertEquals("[PRODUTO DE EXEMPLO] - Fortaleza Digital", livro);
@@ -37,6 +37,7 @@ public class LojaVirtualTest extends BaseTest {
 
 	@Test
 	public void testClickLista() {
+		Driver.setUrl("https://lojaexemplod.lojablindada.com/");
 		inicialPage.setPesquisa("html", Keys.ENTER);
 
 		String preco = inicialPage.getPrecoLista();

@@ -1,6 +1,5 @@
 package map;
 
-import org.openqa.selenium.By;
 
 import core.Element;
 import enums.ByValue;
