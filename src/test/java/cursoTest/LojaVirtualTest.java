@@ -7,9 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.Keys;
 
-
-import Pages.InicialPage;
 import core.Driver;
+import pages.InicialPage;
 
 public class LojaVirtualTest extends BaseTest {
 	InicialPage inicialPage = new InicialPage();

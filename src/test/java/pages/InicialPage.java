@@ -1,6 +1,4 @@
-package Pages;
-
-
+package pages;
 
 import java.util.List;
 import org.openqa.selenium.WebElement;
@@ -9,10 +7,6 @@ import map.InicialMap;
 
 public class InicialPage {
 	InicialMap inicialMap = new InicialMap();
-	String elLivros = "ul.products-grid > li";
-	String elPrecoLista = "span.price";
-	String elTituloLivroLista = "h2 > a";
-	
 	
 
 	public void setPesquisa(CharSequence... valor) {
@@ -43,5 +37,8 @@ public class InicialPage {
 		return null;
 
 }
+	public void clickTitulo() {
+		inicialMap.tituloLivro.click();
+	}
 
 }

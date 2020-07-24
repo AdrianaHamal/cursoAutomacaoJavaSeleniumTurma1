@@ -1,26 +1,36 @@
 #language:pt
+@lojaVirtual
+Funcionalidade: Loja Virtual
+  Busca livro
 
-@tag
-Funcionalidade: Title of your feature
-  I want to use this template for my feature file
+  @validarLivro @regressivo
+  Cenario: Validar livro 
+    Dado que estou na pagina loja virtual
+    Quando realizo a busca do livro "Fortaleza Digital"
+    Entao valido o titulo sendo "[PRODUTO DE EXEMPLO] - Fortaleza Digital"
+    E o preco sendo "R$519,90"
+    Quando clico no livro pesquisado
+    Entao Confirmo o titulo sendo "[PRODUTO DE EXEMPLO] - Fortaleza Digital" e o preco sendo "R$519,90"
 
-  @tag1
-  Cenario: Title of your scenario
-    Dado I want to write a step with precondition
-    E some other precondition
-    Quando I complete action
-    E some other action
-    E yet another action
-    Entao I validate the outcomes
-    E check more outcomes
-
-  @tag2
-  Esquema do Cenario: Title of your scenario outline
-    Dado I want to write a step with <name>
-    Quando I check for the <value> in step
-    Entao I verify the <status> in step
+  @validarLivroMenina @regressivo
+  Cenario: Validar livro menina que roubava livros
+    Dado que estou na pagina loja virtual
+    Quando realizo a busca do livro "menina"
+    Entao valido o titulo sendo "[PRODUTO DE EXEMPLO] - A Menina que Roubava Livros"
+    E o preco sendo "R$821,30"
+    Quando clico no livro pesquisado
+    Entao Confirmo o titulo sendo "[PRODUTO DE EXEMPLO] - A Menina que Roubava Livros" e o preco sendo "R$821,30"
+    
+	@exemploEsquema
+  Esquema do Cenario: Validar Livro <titulo>
+    Dado que estou na pagina loja virtual
+    Quando realizo a busca do livro "<titulo>"
+    Entao valido o titulo sendo "<tituloLivro>"
+    E o preco sendo "<preco>"
+    Quando clico no livro pesquisado
+    Entao Confirmo o titulo sendo "<tituloLivro>" e o preco sendo "<preco>"
 
     Exemplos: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+      | titulo            | tituloLivro                                        | preco    |
+      | Fortaleza Digital | [PRODUTO DE EXEMPLO] - Fortaleza Digital           | R$519,90 |
+      | menina            | [PRODUTO DE EXEMPLO] - A Menina que Roubava Livros | R$821,30 |
